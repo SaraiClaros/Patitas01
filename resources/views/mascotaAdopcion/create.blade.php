@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Registrar Mascota en Adopción</title>
+@extends('layouts.navigation')
+
+@section('title', 'Mascota en adopcion')
+
+@section('content')
     <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -184,5 +185,4 @@
         especieSelect.addEventListener('change', actualizarCampoRaza);
     });
 </script>
-</body>
-</html>
+@endsection

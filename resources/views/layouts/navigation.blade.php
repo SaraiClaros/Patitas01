@@ -49,21 +49,16 @@
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h4 class="text-center">Menú</h4>
-
-    <a href="{{ route('publicaciones.index') }}">🏠 Home</a> 
-    <a href="{{ route('publicaciones.create') }}">📸 Crear Publicación</a>
-    <a href="{{ route('consultas.create') }}">🔍 Buscar</a>
-    <a href="{{ route('solicitudes.create') }}">🌍 Explorar</a>
-    <a href="{{ route('campanas.publicacion') }}">Ver campañas</a>
-    
-
-
-    @auth
+    <div class="sidebar">
+        <h4 class="text-center">Menú</h4>
+        <a href="{{ route('publicaciones.index') }}">🏠 Home</a>
+        <a href="{{ route('publicaciones.create') }}">📸 Crear Publicación</a>
+        <a href="{{ route('adopta.index') }}">🐾 Ver Mascotas en adopción</a>
+        <a href="{{ route('publicaciones.create') }}">🔍 Buscar</a>
+        <a href="{{ route('publicaciones.index') }}">🌍 Explorar</a>
+        @auth
         @if (Auth::user()->tipo_usuario === 'refugio')
-            <a href="{{ route('publicaciones.index') }}">🐶 Publicar mascota en adopción</a>
+            <a href="{{ route('mascotaAdopcion.create') }}">🐶 Publicar mascota en adopción</a>
         @endif
     @endauth
 

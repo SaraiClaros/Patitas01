@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
+    
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +17,12 @@
     background-color: #f3f3f3;
     margin: 0;
     padding: 20px;
+}
+h1{
+    color: #e491a8;
+}
+h2{
+    color: #FF8C69;
 }
 
 .titulo {
@@ -64,7 +70,7 @@
     }
 }
 </style>
-</head>
+
 
 
 <body>
