@@ -102,7 +102,7 @@
             <div class="mt-4">
                 <label for="tipo_usuario" class="block text-sm font-medium text-gray-700">Tipo de usuario</label>
                 <select name="tipo_usuario" id="tipo_usuario" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                    <option value="normal">Usuario Normal</option>
+                    <option value="usuario">Usuario Normal</option>
                     <option value="veterinaria">Veterinaria</option>
                     <option value="refugio">Refugio</option>
                 </select>

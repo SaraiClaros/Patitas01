@@ -1,16 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Adopta</title>
     <style>
     body {
     font-family: Arial, sans-serif;
@@ -82,12 +77,25 @@ h2{
             @foreach ($mascotas as $mascota)
                 <div class="tarjeta">
                     <img src="{{ asset('storage/' . $mascota->foto) }}" alt="Foto de {{ $mascota->nombre }}" class="foto-mascota">
+                    <p><strong>ID:</strong> {{ $mascota->ID_mascota_adop }}</p>
                     <h2>{{ $mascota->nombre }}</h2>
                     <p><strong>Edad:</strong> {{ $mascota->edad }}</p>
-                    <p class="btn-info" style="cursor: default;">Más información</p>
+                     <a href="{{ route('mascotas.show', $mascota->ID_mascota_adop) }}" class="btn-info">
+        Más información
+    </a>
                 </div>
         @endforeach
         </div>
-   
+   @if(session('success'))
+<script>
+    Swal.fire({
+        title: '¡Solicitud enviada!',
+        text: 'Tu solicitud de adopción ha sido enviada con éxito.',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#3085d6'
+    });
+</script>
+@endif
 </body>
 </html>

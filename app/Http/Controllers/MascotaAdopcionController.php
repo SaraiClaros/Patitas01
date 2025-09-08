@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MascotaAdopcion;
+use App\Http\Controllers\Auth;
 
 class MascotaAdopcionController extends Controller
 {
@@ -48,6 +49,7 @@ class MascotaAdopcionController extends Controller
         'fecha_registro' => $request->fecha_registro,
         'estado_adopcion' => $request->estado_adopcion,
         'descripcion' => $request->descripcion,
+        'usuario_id' => Auth::id(),
     ]);
 
 
@@ -59,6 +61,13 @@ public function index()
     $mascotas = MascotaAdopcion::all();
     return view('mascotaAdopcion.Adopta', compact('mascotas'));
 }
+public function show($id)
+{
+    $mascota = MascotaAdopcion::with('solicitudes')->findOrFail($id);
+    return view('mascotaAdopcion.detalle', compact('mascota'));
+}
+
+
 
 
 }
