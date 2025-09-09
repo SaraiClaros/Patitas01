@@ -34,7 +34,8 @@
 
   .form-group input[type="text"],
   .form-group textarea,
-  .form-group input[type="file"] {
+  .form-group input[type="file"],
+  .form-group select {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #ccc;
@@ -44,7 +45,8 @@
   }
 
   .form-group input:focus,
-  .form-group textarea:focus {
+  .form-group textarea:focus,
+  .form-group select:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
@@ -91,6 +93,19 @@
   .btn-secondary:hover {
     background-color: #565e64;
   }
+
+  /* Vista previa de medios */
+  #preview {
+    margin-top: 15px;
+  }
+
+  #preview img, #preview video {
+    max-width: 100%;
+    max-height: 350px;
+    border-radius: 8px;
+    margin-top: 10px;
+    object-fit: cover;
+  }
 </style>
 
 <div class="form-wrapper">
@@ -121,9 +136,39 @@
       </div>
 
       <div class="form-group">
+          <label for="especie">Especie</label>
+          <select name="especie" id="especie" required>
+              <option value="">Selecciona especie</option>
+              <option value="Felina" {{ old('especie') == 'Felina' ? 'selected' : '' }}>Felina</option>
+              <option value="Canino" {{ old('especie') == 'Canino' ? 'selected' : '' }}>Canino</option>
+              <option value="Otro" {{ old('especie') == 'Otro' ? 'selected' : '' }}>Otro</option>
+          </select>
+      </div>
+
+      <div class="form-group">
+          <label for="edad">Edad</label>
+          <select name="edad" id="edad" required>
+              <option value="">Selecciona edad</option>
+              <option value="Cachorro" {{ old('edad') == 'Cachorro' ? 'selected' : '' }}>Cachorro</option>
+              <option value="Adulto" {{ old('edad') == 'Adulto' ? 'selected' : '' }}>Adulto</option>
+          </select>
+      </div>
+
+      <div class="form-group">
+          <label for="estado">Estado</label>
+          <select name="estado" id="estado" required>
+              <option value="">Selecciona estado</option>
+              <option value="Disponible" {{ old('estado') == 'Disponible' ? 'selected' : '' }}>Disponible</option>
+              <option value="Adoptada" {{ old('estado') == 'Adoptada' ? 'selected' : '' }}>Adoptada</option>
+          </select>
+      </div>
+
+      <div class="form-group">
           <label for="media">Archivo multimedia </label>
           <input type="file" name="media" id="media" accept="image/*,video/mp4,video/webm">
       </div>
+
+      <div id="preview"></div>
 
       <div class="btn-wrapper">
           <button type="submit" class="btn-primary">📤 Publicar</button>
@@ -131,5 +176,28 @@
       </div>
   </form>
 </div>
+
+<script>
+  const mediaInput = document.getElementById('media');
+  const preview = document.getElementById('preview');
+
+  mediaInput.addEventListener('change', function() {
+    preview.innerHTML = '';
+    const file = this.files[0];
+    if (!file) return;
+
+    const ext = file.name.split('.').pop().toLowerCase();
+    if(['jpg','jpeg','png','gif'].includes(ext)){
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(file);
+      preview.appendChild(img);
+    } else if(['mp4','webm'].includes(ext)){
+      const video = document.createElement('video');
+      video.src = URL.createObjectURL(file);
+      video.controls = true;
+      preview.appendChild(video);
+    }
+  });
+</script>
 
 @endsection

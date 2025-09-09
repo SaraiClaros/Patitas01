@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('publicacions', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
-        $table->string('titulo');
-        $table->text('descripcion')->nullable();
-        $table->string('media')->nullable();
-        $table->timestamps();
-    });
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+            $table->string('titulo');
+            $table->text('descripcion')->nullable();
+            $table->string('media')->nullable();
+            $table->string('especie'); // Felina, Canino, Otro
+            $table->string('edad');    // Cachorro, Adulto
+            $table->string('estado');  // Disponible, Adoptada
+            $table->timestamps();
+        });
     }
 
     /**

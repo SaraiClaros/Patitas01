@@ -54,7 +54,6 @@
     margin-bottom: 12px;
   }
 
-  /* Botón love */
   .btn-love {
     background-color: transparent;
     border: 2px solid #e0245e;
@@ -105,9 +104,33 @@
   button[type="submit"]:hover {
     background-color: #0056b3;
   }
+
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+
+  .search-bar input {
+    width: 500px;
+    padding: 6px 12px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
 </style>
 
 <h2 style="text-align: center; margin-bottom: 40px;">Publicaciones que pueden ser de tu interés</h2>
+
+<div class="search-bar">
+    <form action="{{ route('busqueda') }}" method="GET">
+        <input 
+            type="text" 
+            name="q" 
+            placeholder="🔍 Buscar..." 
+            value="{{ request('q') }}">
+    </form>
+</div>
 
 <div class="container">
     @foreach ($publicaciones as $publicacion)
@@ -117,8 +140,8 @@
                 Publicado el: {{ $publicacion->created_at->format('d/m/Y H:i') }}
             </p>
 
-            {{-- Mostrar imagen o video --}}
-            @if ($publicacion->media)
+            {{-- Mostrar imagen o video desde storage --}}
+            @if ($publicacion->media && file_exists(public_path('storage/' . $publicacion->media)))
                 @php
                     $ext = strtolower(pathinfo($publicacion->media, PATHINFO_EXTENSION));
                 @endphp

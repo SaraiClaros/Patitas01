@@ -13,8 +13,24 @@ use App\Http\Controllers\VacunacionController;
 use App\Http\Controllers\TratamientoController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\HistorialMedicoController;
+<<<<<<< HEAD
 use App\Http\Controllers\CampanaEsterilizacionController;
 use App\Http\Controllers\SolicitudCEController;
+=======
+use App\Http\Controllers\BusquedaController;
+use App\Http\Controllers\NotificacionController;
+
+
+Route::get('/notificaciones/leer/{id}', [NotificacionController::class, 'leer'])
+    ->name('notificaciones.leer');
+
+
+Route::get('/notificaciones', [NotificacionController::class, 'index'])
+    ->name('notificaciones.index')
+    ->middleware('auth');
+
+
+>>>>>>> 3fb9ab4 (Guarda cambios antes del rebase)
 
 use Illuminate\Support\Facades\Route;
 
@@ -80,5 +96,9 @@ Route::get('/campanas/publicacion', [CampanaEsterilizacionController::class, 'pu
 Route::resource('campanas', CampanaEsterilizacionController::class);
 
 });
+
+Route::get('/busqueda', [BusquedaController::class, 'index'])->name('busqueda');
+
+
 
 require __DIR__.'/auth.php';
