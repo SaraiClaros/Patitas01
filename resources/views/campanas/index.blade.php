@@ -34,7 +34,7 @@
                 <td>{{ $campana->criterios }}</td>
                 <td>{{ $campana->user->name ?? 'Desconocido' }}</td>
                 <td>
-                    <a href="{{ route('campanas.show', $campana->id_campana) }}" class="btn btn-info btn-sm">Ver</a>
+                   
                     <a href="{{ route('campanas.edit', $campana->id_campana) }}" class="btn btn-warning btn-sm">Editar</a>
                     <form action="{{ route('campanas.destroy', $campana->id_campana) }}" method="POST" class="d-inline">
                         @csrf

@@ -3,34 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\SolicitudCE;
-use App\Models\CampanaEsterilizacion;
 use Illuminate\Http\Request;
 
 class SolicitudCEController extends Controller
 {
-    
+    // Mostrar todas las solicitudes
     public function index()
     {
-        $solicitudes = SolicitudCE::with('campana')->latest()->get();
+        $solicitudes = SolicitudCE::latest()->get();
         return view('solicitudes.index', compact('solicitudes'));
     }
 
-    // Formulario de nueva solicitud (HU-018)
+    // Mostrar formulario de creación
     public function create()
     {
-        // Campañas activas (dentro del rango de fechas)
-        $campanas = CampanaEsterilizacion::whereDate('fecha_inicio', '<=', now())
-                                         ->whereDate('fecha_fin', '>=', now())
-                                         ->get();
-
-        return view('solicitudes.create', compact('campanas'));
+        return view('solicitudes.create');
     }
 
-    // Guardar solicitud
+    // Guardar nueva solicitud
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'id_campana'      => 'required|exists:campana_esterilizacion,id_campana',
+        $request->validate([
             'nombre_dueno'    => 'required|string|max:100',
             'correo'          => 'required|email|max:100',
             'estado_economico'=> 'nullable|string|max:50',
@@ -42,31 +35,32 @@ class SolicitudCEController extends Controller
             'descripcion'     => 'nullable|string',
         ]);
 
-        SolicitudCE::create($validated);
+        SolicitudCE::create($request->all());
 
         return redirect()->route('solicitudes.index')
-                         ->with('success', 'Solicitud enviada correctamente.');
+                         ->with('success', 'Solicitud registrada correctamente.');
     }
 
-    // Mostrar solicitud
-    public function show(SolicitudCE $solicitud)
+    // Mostrar una solicitud
+    public function show($id)
     {
-        $solicitud->load('campana');
+        $solicitud = SolicitudCE::findOrFail($id);
         return view('solicitudes.show', compact('solicitud'));
     }
 
-    // Formulario editar solicitud
-    public function edit(SolicitudCE $solicitud)
+    // Formulario de edición
+    public function edit($id)
     {
-        $campanas = CampanaEsterilizacion::all();
-        return view('solicitudes.create', compact('solicitud', 'campanas'));
+        $solicitud = SolicitudCE::findOrFail($id);
+        return view('solicitudes.create', compact('solicitud'));
     }
 
     // Actualizar solicitud
-    public function update(Request $request, SolicitudCE $solicitud)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'id_campana'      => 'required|exists:campana_esterilizacion,id_campana',
+        $solicitud = SolicitudCE::findOrFail($id);
+
+        $request->validate([
             'nombre_dueno'    => 'required|string|max:100',
             'correo'          => 'required|email|max:100',
             'estado_economico'=> 'nullable|string|max:50',
@@ -78,18 +72,19 @@ class SolicitudCEController extends Controller
             'descripcion'     => 'nullable|string',
         ]);
 
-        $solicitud->update($validated);
+        $solicitud->update($request->all());
 
         return redirect()->route('solicitudes.index')
                          ->with('success', 'Solicitud actualizada correctamente.');
     }
 
     // Eliminar solicitud
-    public function destroy(SolicitudCE $solicitud)
+    public function destroy($id)
     {
+        $solicitud = SolicitudCE::findOrFail($id);
         $solicitud->delete();
 
         return redirect()->route('solicitudes.index')
-                         ->with('success', 'Solicitud eliminada.');
+                         ->with('success', 'Solicitud eliminada correctamente.');
     }
 }

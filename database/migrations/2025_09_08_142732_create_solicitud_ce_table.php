@@ -10,9 +10,6 @@ return new class extends Migration
 {
     Schema::create('solicitud_ce', function (Blueprint $table) {
         $table->id('id_solicitud');
-        $table->foreignId('id_campana')
-              ->constrained('campana_esterilizacion')
-              ->onDelete('cascade');
         $table->string('nombre_dueno', 100);
         $table->string('correo', 100);
         $table->string('estado_economico', 50)->nullable();

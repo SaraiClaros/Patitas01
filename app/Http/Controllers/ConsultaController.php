@@ -20,7 +20,7 @@ class ConsultaController extends Controller
     {
         $consulta = null; // Para que la vista sepa que es creación
         $mascotas = Mascota::all();
-        return view('consultas.form', compact('consulta', 'mascotas'));
+        return view('consultas.create', compact('consulta', 'mascotas'));
     }
 
     // Guardar nueva consulta

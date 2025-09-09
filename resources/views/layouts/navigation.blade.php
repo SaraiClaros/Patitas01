@@ -68,6 +68,8 @@
 
         <a href="{{ route('campanas.create') }}">Publicar C.E.</a>
         <a href="{{ route('solicitudes.index') }}">Recibir solicitudes C.E.</a>
+         <a href="{{ route('campanas.index') }}">Control C.E.</a>
+
 
 
         <div class="dropdown" data-bs-display="static">

@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
 class SolicitudCE extends Model
 {
+    use HasFactory;
+
     protected $table = 'solicitud_ce';
     protected $primaryKey = 'id_solicitud';
 
     protected $fillable = [
-        'id_campana',
         'nombre_dueno',
         'correo',
         'estado_economico',
@@ -20,8 +24,5 @@ class SolicitudCE extends Model
         'descripcion',
     ];
 
-    public function campana()
-    {
-        return $this->belongsTo(CampanaEsterilizacion::class, 'id_campana', 'id_campana');
-    }
+    
 }
